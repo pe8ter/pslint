@@ -1,0 +1,30 @@
+{
+  "name": "pslint",
+  "version": "1.0.0",
+  "description": "A collection useful TSLint rules.",
+  "author": "Peter Safranek <pe8ter@mac.com> (https://pe8ter.com)",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/pe8ter/pslint#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pe8ter/pslint.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pe8ter/pslint/issues"
+  },
+  "keywords": [
+    "lint",
+    "tslint",
+    "typescript"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "tsc",
+    "dist": "npm run clean; npm run build; cp README.md dist/pslint; node tools/package.js"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.8",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.6"
+  }
+}
