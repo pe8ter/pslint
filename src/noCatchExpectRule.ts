@@ -12,12 +12,6 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
-    Parts copied from the TSLint project:
-    https://github.com/palantir/tslint/blob/7c841c0/src/rules/banRule.ts
-
-    This rule makes sure that Jasmine's `expect()` and `expectAsync()` functions aren't
-    called within a `catch` block, which may cause tests to incorrectly succeed.
  */
 
 import * as ts from 'typescript';
@@ -25,6 +19,12 @@ import * as TSlint from 'tslint';
 
 const EXPECT = 'expect';
 const EXPECT_ASYNC = 'expectAsync';
+
+// This rule makes sure that Jasmine's `expect()` and `expectAsync()` functions aren't
+// called within a `catch` block, which may cause tests to incorrectly succeed.
+//
+// Parts copied from the TSLint project:
+// https://github.com/palantir/tslint/blob/7c841c0/src/rules/banRule.ts
 
 export class Rule extends TSlint.Rules.AbstractRule {
 
