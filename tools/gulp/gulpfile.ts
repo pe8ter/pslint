@@ -19,6 +19,7 @@ import * as ts from 'gulp-typescript';
 import * as gulpJsonEditor from 'gulp-json-editor';
 import * as runSequence from 'run-sequence';
 import * as del from 'del';
+import pick = require('just-pick');
 
 const DIST = 'dist';
 
@@ -50,8 +51,18 @@ gulp.task('copy.package.json', () => {
         .src('package.json')
         .pipe(gulpJsonEditor((json: any) => {
             const tslint = json.devDependencies.tslint;
-            delete json.devDependencies;
-            delete json.scripts;
+            json = pick(json, [
+                'name',
+                'version',
+                'description',
+                'author',
+                'license',
+                'homepage',
+                'repository',
+                'bugs',
+                'keywords',
+                'engines',
+            ]);
             json.peerDependencies = { tslint };
             return json;
         }))
