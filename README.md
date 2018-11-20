@@ -40,5 +40,5 @@ $ npm run gulp
 To run an individual task, for example, to just build the TypeScript:
 
 ```bash
-$ npm run gulp -- build
+$ npm run gulp -- transpile
 ```

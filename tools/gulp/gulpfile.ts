@@ -14,42 +14,41 @@
     limitations under the License.
 */
 
-import * as gulp from 'gulp';
+import { src, dest, series, parallel } from 'gulp';
 import * as ts from 'gulp-typescript';
 import * as gulpJsonEditor from 'gulp-json-editor';
-import * as runSequence from 'run-sequence';
 import * as del from 'del';
+import pump = require('pump');
 import pick = require('just-pick');
 
 const DIST = 'dist';
 
-gulp.task('default', (done) => {
-    runSequence('clean', ['build', 'copy.readme', 'copy.package.json'], done);
-});
+export default series(clean, parallel(transpile, copyReadme, copyPackageJson));
 
-gulp.task('clean', async () => {
+export async function clean() {
     return del(DIST);
-});
+}
 
-gulp.task('build', () => {
+export async function transpile() {
     const tsProject = ts.createProject('tsconfig.json');
-    return tsProject
-        .src()
-        .pipe(tsProject())
-        .js
-        .pipe(gulp.dest(DIST));
-});
+    return pump(
+        tsProject.src(),
+        tsProject(),
+        dest(DIST),
+    );
+};
 
-gulp.task('copy.readme', () => {
-    return gulp
-        .src('README.md')
-        .pipe(gulp.dest(DIST));
-});
+export async function copyReadme() {
+    return pump(
+        src('README.md'),
+        dest(DIST),
+    );
+}
 
-gulp.task('copy.package.json', () => {
-    return gulp
-        .src('package.json')
-        .pipe(gulpJsonEditor((json: any) => {
+export async function copyPackageJson() {
+    return pump(
+        src('package.json'),
+        gulpJsonEditor((json: any) => {
             const tslint = json.devDependencies.tslint;
             json = pick(json, [
                 'name',
@@ -65,6 +64,7 @@ gulp.task('copy.package.json', () => {
             ]);
             json.peerDependencies = { tslint };
             return json;
-        }))
-        .pipe(gulp.dest(DIST));
-});
+        }),
+        dest(DIST),
+    );
+}

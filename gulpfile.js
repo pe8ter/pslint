@@ -23,5 +23,5 @@ tsNode.register({
     project: path.join(__dirname, 'tools/gulp/tsconfig.json'),
 });
 
-// Actual Gulp tasks go here.
-require('./tools/gulp/gulpfile');
+// Gulp tasks go into this TypeScript file.
+module.exports = require('./tools/gulp/gulpfile');
