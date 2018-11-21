@@ -18,8 +18,8 @@ import { src, dest, series, parallel } from 'gulp';
 import * as ts from 'gulp-typescript';
 import * as gulpJsonEditor from 'gulp-json-editor';
 import * as del from 'del';
-import pump = require('pump');
 import pick = require('just-pick');
+import { pump } from './utils';
 
 const DIST = 'dist';
 
