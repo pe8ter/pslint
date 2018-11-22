@@ -17,9 +17,6 @@
 import * as ts from 'typescript';
 import * as TSlint from 'tslint';
 
-const EXPECT = 'expect';
-const EXPECT_ASYNC = 'expectAsync';
-
 // This rule makes sure that Jasmine's `expect()` and `expectAsync()` functions aren't
 // called within a `catch` block, which may cause tests to incorrectly succeed.
 //
@@ -28,13 +25,13 @@ const EXPECT_ASYNC = 'expectAsync';
 
 export class Rule extends TSlint.Rules.AbstractRule {
 
-    public static EXPECT_MESSAGE = 'Do not call expect() within a catch block.';
-    public static EXPECT_ASYNC_MESSAGE = 'Do not call expectAsync() within a catch block.';
-
     public apply(sourceFile: ts.SourceFile): TSlint.RuleFailure[] {
         return this.applyWithWalker(new NoCatchExpectWalker(sourceFile, this.getOptions()));
     }
 }
+
+const EXPECT = 'expect';
+const EXPECT_ASYNC = 'expectAsync';
 
 class NoCatchExpectWalker extends TSlint.RuleWalker {
 
@@ -43,9 +40,9 @@ class NoCatchExpectWalker extends TSlint.RuleWalker {
         const text = (node.expression as ts.Identifier).text;
 
         if (text === EXPECT && this._findCatchParent(node)) {
-            this.addFailureAtNode(node.expression, Rule.EXPECT_MESSAGE);
+            this.addFailureAtNode(node.expression, this._errorMessage(EXPECT));
         } else if (text === EXPECT_ASYNC && this._findCatchParent(node)) {
-            this.addFailureAtNode(node.expression, Rule.EXPECT_ASYNC_MESSAGE);
+            this.addFailureAtNode(node.expression, this._errorMessage(EXPECT_ASYNC));
         }
 
         super.visitCallExpression(node);
@@ -63,5 +60,9 @@ class NoCatchExpectWalker extends TSlint.RuleWalker {
         }
 
         return false;
+    }
+
+    private _errorMessage(type: string): string {
+        return `Do not call ${type}() within a catch block.`;
     }
 }

@@ -6,7 +6,9 @@
     "moduleResolution": "Node",
     "strict": true,
     "noUnusedParameters": true,
-    "noUnusedLocals": true
-  },
-  "include": ["src/**/*"]
+    "noUnusedLocals": true,
+    "lib": [
+      "ES2017"
+    ]
+  }
 }
