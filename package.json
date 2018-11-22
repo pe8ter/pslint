@@ -1,6 +1,6 @@
 {
   "name": "pslint",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A collection useful TSLint rules.",
   "author": "Peter Safranek <pe8ter@mac.com> (https://pe8ter.com)",
   "license": "Apache-2.0",
