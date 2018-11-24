@@ -80,6 +80,7 @@ export async function copyPackageJson() {
             const tslintVersion = json.devDependencies.tslint;
             const picked: any = pick(json, KEYS);
             picked.peerDependencies = { tslint: tslintVersion };
+            picked.main = 'index.js';
             return picked;
         }),
         dest(DIST),
@@ -98,7 +99,7 @@ import _pump = require('pump');
 async function pump(...transformers: NodeJS.ReadWriteStream[]): Promise<void> {
 
     // TypeScript has trouble with util.promisify when the promisified function
-    // has overloaded typings in its .d.ts, so we have to roll our own.
+    // has overloaded typings in its .d.ts, so we have to roll our own promisifier.
     return new Promise<void>((resolve, reject) => {
         _pump(transformers, (err: any) => {
             if (err) {
