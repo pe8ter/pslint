@@ -134,7 +134,6 @@
     "no-duplicate-imports": true,
     "no-mergeable-namespace": true,
     "no-require-imports": false,
-    "no-trailing-whitespace": true,
     "object-literal-sort-keys": false,
     "prefer-const": true,
     "prefer-readonly": true,
@@ -216,24 +215,6 @@
       "check-typecast",
       "check-type-operator",
       "check-preblock"
-    ],
-
-    "typedef-whitespace": [
-      true,
-      {
-        "call-signature": "nospace",
-        "index-signature": "nospace",
-        "parameter": "nospace",
-        "property-declaration": "nospace",
-        "variable-declaration": "nospace"
-      },
-      {
-        "call-signature": "onespace",
-        "index-signature": "onespace",
-        "parameter": "onespace",
-        "property-declaration": "onespace",
-        "variable-declaration": "onespace"
-      }
     ]
   }
 }
