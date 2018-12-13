@@ -18,6 +18,7 @@
 import { src, dest, series, parallel } from 'gulp';
 import * as ts from 'gulp-typescript';
 import gulpJsonEditor = require('gulp-json-editor');
+import gulpJsonValidator = require('gulp-json-validator');
 import tslintPlugin from 'gulp-tslint';
 import * as tslint from 'tslint';
 import * as del from 'del';
@@ -27,7 +28,18 @@ import { join } from 'path';
 const SRC = 'src';
 const DIST = 'dist';
 
-export default series(clean, parallel(transpile, lint, copyReadme, copyPackageJson));
+export default series(
+    clean,
+    parallel(
+        transpile,
+        copyReadme,
+        copyPackageJson,
+    ),
+    parallel(
+        lint,
+        validateJson,
+    ),
+);
 
 export async function clean() {
     return del(DIST);
@@ -43,13 +55,20 @@ export async function transpile() {
 
 export async function lint() {
     return pump(
-        src(['**/*.ts', '!node_modules/**/*.ts']),
+        src(['**/*.ts', '!node_modules/**/*.ts', '!dist/**/*.ts']),
         tslintPlugin({
             configuration: 'tslint.json',
             formatter: 'verbose',
             program: tslint.Linter.createProgram('tsconfig.json'),
         }),
         tslintPlugin.report({ emitError: true }),
+    );
+}
+
+export async function validateJson() {
+    return pump(
+        src(['**/*.json', '!node_modules/**/*.json']),
+        gulpJsonValidator(),
     );
 }
 

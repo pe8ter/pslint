@@ -1,6 +1,6 @@
 # pslint
 
-A collection useful TSLint rules.
+A collection of useful TSLint rules.
 
 ## Rules
 

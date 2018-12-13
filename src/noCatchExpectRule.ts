@@ -26,7 +26,7 @@ import * as TSLint from 'tslint';
  * https://github.com/palantir/tslint/blob/7c841c0/src/rules/banRule.ts
  */
 
- export class Rule extends TSLint.Rules.AbstractRule {
+export class Rule extends TSLint.Rules.AbstractRule {
 
     public apply(sourceFile: ts.SourceFile): TSLint.RuleFailure[] {
         return this.applyWithWalker(new NoCatchExpectWalker(sourceFile, this.getOptions()));
