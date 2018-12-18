@@ -24,7 +24,7 @@
   "scripts": {
     "gulp": "gulp",
     "test": "ts-node test/ruleTestRunner.ts",
-    "npm-check": "npm-check -su"
+    "npm-check": "npm-check -u"
   },
   "devDependencies": {
     "@types/del": "^3.0.1",
