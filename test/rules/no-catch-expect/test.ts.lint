@@ -1,0 +1,36 @@
+describe('passing cases', () => {
+
+    it('synchronous', () => {
+        expect(true).toBe(true);
+    });
+
+    it('asynchronous', async () => {
+        await expectAsync(Promise.resolve(true)).toBeResolvedTo(true);
+    });
+});
+
+describe('failing cases', () => {
+
+    it('synchronous', () => {
+        try {
+            throw new Error('Bad mojo');
+        } catch (err) {
+            expect(err).toBe(new Error('Bad mojo'));
+            ~~~~~~ [0]
+        }
+    });
+
+    it('asynchronous', async () => {
+        let error;
+        try {
+            error = Promise.reject(new Error('Bad mojo'));
+            throw error;
+        } catch (err) {
+            await expectAsync(error).toBeRejected();
+                  ~~~~~~~~~~~ [1]
+        }
+    });
+});
+
+[0]: Do not call expect() within a catch block.
+[1]: Do not call expectAsync() within a catch block.
