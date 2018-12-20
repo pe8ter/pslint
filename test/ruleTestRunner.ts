@@ -23,7 +23,7 @@ import { dirname } from 'path';
 // Test runner copied from the TSLint project.
 // Credit: https://github.com/palantir/tslint/commit/6b0af8fabb4bc98338d8912a693f5f851812dfff
 
-const RULES_DIRECTORY = 'src';
+const RULES_DIRECTORY = 'src/rules';
 
 process.stdout.write(chalk.underline('\nTesting lint rules:\n'));
 
