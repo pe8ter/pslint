@@ -33,8 +33,8 @@ for (const testDirectory of testDirectories) {
 
     const results = Test.runTest(testDirectory, RULES_DIRECTORY);
     const didAllTestsPass = Test.consoleTestResultHandler(results, {
-        log(m) { process.stdout.write(m) },
-        error(m) { process.stderr.write(m) },
+        log(m: string) { process.stdout.write(m); },
+        error(m: string) { process.stderr.write(m); },
     });
 
     if (!didAllTestsPass) {

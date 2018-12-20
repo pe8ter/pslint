@@ -21,7 +21,7 @@ import gulpJsonEditor = require('gulp-json-editor');
 import gulpJsonValidator = require('gulp-json-validator');
 import tslintPlugin from 'gulp-tslint';
 import * as tslint from 'tslint';
-import * as del from 'del';
+import del = require('del');
 import pick = require('just-pick');
 import { join } from 'path';
 
@@ -97,9 +97,11 @@ export async function copyPackageJson() {
     return pump(
         src('package.json'),
         gulpJsonEditor((json: any) => {
-            const tslintVersion = json.devDependencies.tslint;
+            const devDependencies = json.devDependencies;
             const picked: any = pick(json, KEYS);
-            picked.peerDependencies = { tslint: tslintVersion };
+            picked.peerDependencies = {
+                tslint: devDependencies.tslint,
+            };
             picked.main = 'index.js';
             return picked;
         }),

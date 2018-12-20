@@ -31,6 +31,8 @@ Then add the rules' location and configurations to your _tslint.json_:
 }
 ```
 
+Note the `peerDependencies` in _package.json_.
+
 ## Development
 
 ### Build
@@ -58,3 +60,13 @@ Run the tests:
 ```bash
 $ npm run test
 ```
+
+### Debug
+
+To debug a rule, set a breakpoint using the `debugger` statement then run
+
+```bash
+$ npm run test-debug
+```
+
+In Chrome, navigate to _chrome://inspect_ where you'll see the app listed as available for debugging.

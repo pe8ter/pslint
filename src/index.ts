@@ -16,3 +16,4 @@
  */
 
 export { Rule as NoCatchExpectRule } from './noCatchExpectRule';
+export { Rule as NoEmptyImportsRule } from './noEmptyImportsRule';
