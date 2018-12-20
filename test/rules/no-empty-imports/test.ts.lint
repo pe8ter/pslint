@@ -1,0 +1,26 @@
+import { quack } from 'duck';
+import { sing as vocalize } from 'human';
+import bark from 'dog';
+import meow = require('cat');
+import * as neigh from 'horse';
+
+import {} from 'fish';
+      ~~~ [0]
+
+import    {}    from 'spider';
+      ~~~~~~ [0]
+
+import {    } from 'rat';
+      ~~~~~~~ [0]
+
+import { /* squeek */ } from 'rat';
+      ~~~~~~~~~~~~~~~~~ [0]
+
+import {
+      ~~
+    // honk
+~~~~~~~~~~~
+} from 'goose';
+~ [0]
+
+[0]: Empty import statement not allowed.
