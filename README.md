@@ -5,6 +5,7 @@ A collection of useful TSLint rules.
 ## Rules
 
 * `no-catch-expect`: Prevent calling Jasmine's `expect` and `expectAsync` functions within a `catch` block. If your tested code should throw an exception and you check that by calling `expect` within a `catch` block, then your test might incorrectly succeed if your tested code does not throw an exception. Using this rule forces you to move the `expect` _after_ the `catch` block.
+* `no-empty-imports`: Prevent `import` statement from not importing any symbols.
 
 ## Prerequisites
 
@@ -26,7 +27,8 @@ Then add the rules' location and configurations to your _tslint.json_:
     "./node_modules/pslint"
   ],
   "rules": {
-    "no-catch-expect": true
+    "no-catch-expect": true,
+    "no-empty-imports": true
   }
 }
 ```

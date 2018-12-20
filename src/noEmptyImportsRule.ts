@@ -19,7 +19,7 @@ import * as ts from 'typescript';
 import * as TSLint from 'tslint';
 
 /**
- * This rule makes sure that import statments always import a symbol.
+ * This rule makes sure that import statements always import a symbol.
  */
 
 export class Rule extends TSLint.Rules.AbstractRule {

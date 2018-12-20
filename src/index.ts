@@ -15,5 +15,5 @@
  * limitations under the License.
  */
 
-export { Rule as NoCatchExpectRule } from './rules/noCatchExpectRule';
-export { Rule as NoEmptyImportsRule } from './rules/noEmptyImportsRule';
+export { Rule as NoCatchExpectRule } from './noCatchExpectRule';
+export { Rule as NoEmptyImportsRule } from './noEmptyImportsRule';
