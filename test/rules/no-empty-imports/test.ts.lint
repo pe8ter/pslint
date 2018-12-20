@@ -13,7 +13,7 @@ import    {}    from 'spider';
 import {    } from 'rat';
       ~~~~~~~ [0]
 
-import { /* squeek */ } from 'rat';
+import { /* squeak */ } from 'rat';
       ~~~~~~~~~~~~~~~~~ [0]
 
 import {
@@ -23,4 +23,4 @@ import {
 } from 'goose';
 ~ [0]
 
-[0]: Empty import statement not allowed.
+[0]: Empty import statements not allowed.

@@ -24,7 +24,7 @@ import * as TSLint from 'tslint';
 
 export class Rule extends TSLint.Rules.AbstractRule {
 
-    public static readonly FAILURE_MESSAGE = 'Empty import statement not allowed.';
+    public static readonly FAILURE_MESSAGE = 'Empty import statements not allowed.';
 
     public apply(sourceFile: ts.SourceFile): TSLint.RuleFailure[] {
         return this.applyWithWalker(new NoEmptyImportsWalker(sourceFile, this.getOptions()));
