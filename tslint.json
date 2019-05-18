@@ -4,6 +4,7 @@
   "rules": {
 
     "adjacent-overload-signatures": true,
+    "ban-ts-ignore": true,
     "ban-types": [true, ["Object"], ["Array"], ["String"], ["Number"], ["Boolean"]],
     "member-access": true,
     "member-ordering": [
@@ -48,23 +49,6 @@
       "parameter",
       "property-declaration"
     ],
-    "typedef-whitespace": [
-      true,
-      {
-        "call-signature": "nospace",
-        "index-signature": "nospace",
-        "parameter": "nospace",
-        "property-declaration": "nospace",
-        "variable-declaration": "nospace"
-      },
-      {
-        "call-signature": "onespace",
-        "index-signature": "onespace",
-        "parameter": "onespace",
-        "property-declaration": "onespace",
-        "variable-declaration": "onespace"
-      }
-    ],
     "unified-signatures": true,
 
     "await-promise": true,
@@ -72,7 +56,8 @@
     "ban": false,
     "curly": true,
     "forin": true,
-    "import-blacklist": [true, "pump"],
+    "function-constructor": true,
+    "import-blacklist": false,
     "label-position": true,
     "no-arg": true,
     "no-bitwise": true,
@@ -94,7 +79,9 @@
     "no-invalid-this": true,
     "no-misused-new": true,
     "no-null-keyword": false,
+    "no-null-undefined-union": true,
     "no-object-literal-type-assertion": true,
+    "no-restricted-globals": false,
     "no-return-await": true,
     "no-shadowed-variable": true,
     "no-sparse-arrays": true,
@@ -102,6 +89,7 @@
     "no-string-throw": true,
     "no-submodule-imports": false,
     "no-switch-case-fall-through": true,
+    "no-tautology-expression": true,
     "no-this-assignment": true,
     "no-unbound-method": true,
     "no-unnecessary-class": false,
@@ -115,21 +103,19 @@
     "prefer-object-spread": true,
     "radix": true,
     "restrict-plus-operands": true,
+    "static-this": true,
     "strict-boolean-expressions": false,
     "strict-type-predicates": true,
     "switch-default": true,
     "triple-equals": true,
+    "unnecessary-constructor": true,
     "use-default-type-parameter": true,
     "use-isnan": true,
 
     "cyclomatic-complexity": false,
-    "deprecation": true,
-    "eofline": true,
-    "indent": [true, "spaces", 4],
-    "linebreak-style": [true, "LF"],
+    "deprecation": false,
     "max-classes-per-file": [true, 2],
     "max-file-line-count": false,
-    "max-line-length": [true, 120],
     "no-default-export": false,
     "no-duplicate-imports": true,
     "no-mergeable-namespace": true,
@@ -137,47 +123,31 @@
     "object-literal-sort-keys": false,
     "prefer-const": true,
     "prefer-readonly": true,
-    "trailing-comma": [
-      true,
-      {
-        "multiline": "always",
-        "singleline": "never",
-        "esSpecCompliant": true
-      }
-    ],
 
-    "align": [true, "parameters", "arguments", "statements", "members", "elements"],
     "array-type": [true, "array"],
-    "arrow-parens": [true, "ban-single-arg-parens"],
     "arrow-return-shorthand": true,
     "binary-expression-operand-order": true,
     "callable-types": true,
     "class-name": true,
     "comment-format": [true, "check-space"],
+    "comment-type": false,
     "completed-docs": false,
     "encoding": true,
     "file-header": false,
     "file-name-casing": [true, "camel-case"],
-    "import-spacing": true,
+    "increment-decrement": true,
     "interface-name": [true, "never-prefix"],
     "interface-over-type-literal": true,
-    "jsdoc-format": true,
     "match-default-export-name": true,
-    "newline-before-return": false,
     "newline-per-chained-call": false,
-    "new-parens": true,
     "no-angle-bracket-type-assertion": false,
     "no-boolean-literal-compare": true,
-    "no-consecutive-blank-lines": true,
-    "no-irregular-whitespace": true,
     "no-parameter-properties": false,
     "no-redundant-jsdoc": true,
     "no-reference-import": true,
-    "no-trailing-whitespace": true,
     "no-unnecessary-callback-wrapper": true,
     "no-unnecessary-initializer": true,
     "no-unnecessary-qualifier": true,
-    "number-literal-format": true,
     "object-literal-key-quotes": [true, "consistent-as-needed"],
     "object-literal-shorthand": true,
     "one-line": [true, "check-catch", "check-finally", "check-else", "check-open-brace", "check-whitespace"],
@@ -188,9 +158,7 @@
     "prefer-switch": true,
     "prefer-template": true,
     "prefer-while": true,
-    "quotemark": [true, "single", "avoid-escape", "avoid-template"],
     "return-undefined": true,
-    "semicolon": [true, "always"],
     "space-before-function-paren": [
       true,
       { "anonymous": "always" },
@@ -202,7 +170,51 @@
     "space-within-parens": 0,
     "switch-final-break": [true, "always"],
     "type-literal-delimiter": true,
+    "unnecessary-bind": true,
+    "unnecessary-else": false,
     "variable-name": [true, "check-format", "allow-leading-underscore", "ban-keywords"],
+
+    "align": [true, "parameters", "arguments", "statements", "members", "elements"],
+    "arrow-parens": [true, "ban-single-arg-parens"],
+    "eofline": true,
+    "import-spacing": true,
+    "indent": [true, "spaces", 4],
+    "jsdoc-format": true,
+    "linebreak-style": [true, "LF"],
+    "max-line-length": [true, 120],
+    "newline-before-return": false,
+    "new-parens": true,
+    "no-consecutive-blank-lines": true,
+    "no-irregular-whitespace": true,
+    "no-trailing-whitespace": true,
+    "number-literal-format": true,
+    "quotemark": [true, "single", "avoid-escape", "avoid-template"],
+    "semicolon": [true, "always"],
+    "trailing-comma": [
+      true,
+      {
+        "multiline": "always",
+        "singleline": "never",
+        "esSpecCompliant": true
+      }
+    ],
+    "typedef-whitespace": [
+      true,
+      {
+        "call-signature": "nospace",
+        "index-signature": "nospace",
+        "parameter": "nospace",
+        "property-declaration": "nospace",
+        "variable-declaration": "nospace"
+      },
+      {
+        "call-signature": "onespace",
+        "index-signature": "onespace",
+        "parameter": "onespace",
+        "property-declaration": "onespace",
+        "variable-declaration": "onespace"
+      }
+    ],
     "whitespace": [
       true,
       "check-branch",

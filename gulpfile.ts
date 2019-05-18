@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { src, dest, series, parallel } from 'gulp';
+import { src, dest, series } from 'gulp';
 import * as ts from 'gulp-typescript';
 import gulpJsonEditor = require('gulp-json-editor');
 import gulpJsonValidator = require('gulp-json-validator');
@@ -24,37 +24,27 @@ import * as tslint from 'tslint';
 import del = require('del');
 import pick = require('just-pick');
 import { join } from 'path';
+import { promisify } from 'util';
+const pump = promisify(require('pump'));
 
 const SRC = 'src';
 const DIST = 'dist';
 
 export default series(
     clean,
-    parallel(
-        transpile,
-        copyReadme,
-        copyPackageJson,
-    ),
-    parallel(
-        lint,
-        validateJson,
-    ),
+    lint,
+    validateJson,
+    transpile,
+    copyReadme,
+    copyPackageJson,
 );
 
 export async function clean() {
-    return del(DIST);
-}
-
-export async function transpile() {
-    return pump(
-        src(join(SRC, '**/*.ts')),
-        ts.createProject('tsconfig.json')(),
-        dest(DIST),
-    );
+    await del(DIST);
 }
 
 export async function lint() {
-    return pump(
+    await pump(
         src(['**/*.ts', '!node_modules/**/*.ts', '!dist/**/*.ts']),
         tslintPlugin({
             configuration: 'tslint.json',
@@ -66,21 +56,28 @@ export async function lint() {
 }
 
 export async function validateJson() {
-    return pump(
+    await pump(
         src(['**/*.json', '!node_modules/**/*.json']),
         gulpJsonValidator(),
     );
 }
 
+export async function transpile() {
+    await pump(
+        src(join(SRC, '**/*.ts')),
+        ts.createProject('tsconfig.json')(),
+        dest(DIST),
+    );
+}
+
 export async function copyReadme() {
-    return pump(
+    await pump(
         src('README.md'),
         dest(DIST),
     );
 }
 
 export async function copyPackageJson() {
-
     const KEYS = [
         'name',
         'version',
@@ -93,8 +90,7 @@ export async function copyPackageJson() {
         'keywords',
         'engines',
     ];
-
-    return pump(
+    await pump(
         src('package.json'),
         gulpJsonEditor((json: any) => {
             const devDependencies = json.devDependencies;
@@ -107,28 +103,4 @@ export async function copyPackageJson() {
         }),
         dest(DIST),
     );
-}
-
-// ---------------------------------------------------------------------------------------------------------------------
-
-// tslint:disable-next-line:import-blacklist
-import _pump = require('pump');
-
-/**
- * Wrap `pump` in a Promise to automatically handle errors passed to its callback.
- */
-
-async function pump(...transformers: NodeJS.ReadWriteStream[]): Promise<void> {
-
-    // TypeScript has trouble with util.promisify when the promisified function
-    // has overloaded typings in its .d.ts, so we have to roll our own promisifier.
-    return new Promise<void>((resolve, reject) => {
-        _pump(transformers, (err: any) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve();
-            }
-        });
-    });
 }
