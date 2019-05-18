@@ -22,7 +22,7 @@
     "npm": ">=6.4.1"
   },
   "scripts": {
-    "gulp": "gulp",
+    "gulp": "if [ \"$NO_COLOR\" = \"1\" ]; then export GULP_NO_COLOR=--no-color; fi; gulp $GULP_NO_COLOR",
     "test": "ts-node test/ruleTestRunner.ts",
     "test-debug": "node --inspect-brk ./node_modules/ts-node/dist/bin -- test/ruleTestRunner.ts",
     "npm-check": "npm-check -u"
