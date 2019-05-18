@@ -117,6 +117,7 @@
     "max-classes-per-file": [true, 2],
     "max-file-line-count": false,
     "no-default-export": false,
+    "no-default-import": false,
     "no-duplicate-imports": true,
     "no-mergeable-namespace": true,
     "no-require-imports": false,
