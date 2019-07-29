@@ -25,7 +25,9 @@ import del = require('del');
 import pick = require('just-pick');
 import { join } from 'path';
 import { promisify } from 'util';
-const pump = promisify(require('pump'));
+import { pipeline as _pipeline } from 'stream';
+
+const pipeline = promisify(_pipeline);
 
 const SRC = 'src';
 const DIST = 'dist';
@@ -44,7 +46,7 @@ export async function clean() {
 }
 
 export async function lint() {
-    await pump(
+    await pipeline(
         src(['**/*.ts', '!node_modules/**/*.ts', '!dist/**/*.ts']),
         tslintPlugin({
             configuration: 'tslint.json',
@@ -56,14 +58,14 @@ export async function lint() {
 }
 
 export async function validateJson() {
-    await pump(
+    await pipeline(
         src(['**/*.json', '!node_modules/**/*.json']),
         gulpJsonValidator(),
     );
 }
 
 export async function transpile() {
-    await pump(
+    await pipeline(
         src(join(SRC, '**/*.ts')),
         ts.createProject('tsconfig.json')(),
         dest(DIST),
@@ -71,7 +73,7 @@ export async function transpile() {
 }
 
 export async function copyReadme() {
-    await pump(
+    await pipeline(
         src('README.md'),
         dest(DIST),
     );
@@ -90,7 +92,7 @@ export async function copyPackageJson() {
         'keywords',
         'engines',
     ];
-    await pump(
+    await pipeline(
         src('package.json'),
         gulpJsonEditor((json: any) => {
             const devDependencies = json.devDependencies;
