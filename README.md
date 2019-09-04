@@ -6,6 +6,7 @@ A collection of useful TSLint rules.
 
 * `no-catch-expect`: Prevent calling Jasmine's `expect` and `expectAsync` functions within a `catch` block. If your tested code should throw an exception and you check that by calling `expect` within a `catch` block, then your test might incorrectly succeed if your tested code does not throw an exception. Using this rule forces you to move the `expect` _after_ the `catch` block.
 * `no-empty-imports`: Prevent `import` statements from not importing any symbols.
+* `require-component-view-encapsulation`: Require Angular components to declare view encapsulation. When using ahead-of-time compilation, you cannot override the default Emulated encapsulation option. If you want ShadowDom encapsulation you must remember to add this option to each component. This rule forces you to add a specific encapsulation option.
 
 ## Prerequisites
 
@@ -28,7 +29,8 @@ Then add the rules' location and configurations to your _tslint.json_:
   ],
   "rules": {
     "no-catch-expect": true,
-    "no-empty-imports": true
+    "no-empty-imports": true,
+    "require-component-view-encapsulation": [true, "ShadowDom"]
   }
 }
 ```
