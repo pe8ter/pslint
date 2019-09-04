@@ -1,0 +1,33 @@
+import { Component, ViewEncapsulation } from '@angular/core';
+
+@Component({
+    selector: 'component-a',
+    encapsulation: ViewEncapsulation.Emulated,
+})
+class ComponentA {}
+
+@Component({
+    selector: 'component-b',
+    encapsulation: ViewEncapsulation.Native,
+                                     ~~~~~~ [1]
+})
+class ComponentB {}
+
+@Component({
+    selector: 'component-c',
+    encapsulation: ViewEncapsulation.None,
+                                     ~~~~ [2]
+})
+class ComponentC {}
+
+@Component({
+    selector: 'component-d',
+    encapsulation: ViewEncapsulation.ShadowDom,
+                                     ~~~~~~~~~ [3]
+})
+class ComponentD {}
+
+[0]: Encapsulation type Emulated not allowed.
+[1]: Encapsulation type Native not allowed.
+[2]: Encapsulation type None not allowed.
+[3]: Encapsulation type ShadowDom not allowed.

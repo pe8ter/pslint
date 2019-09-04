@@ -1,0 +1,56 @@
+import { Component, ViewEncapsulation } from '@angular/core';
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+const cmp = {
+    selector: 'component-a',
+    encapsulation: ViewEncapsulation.ShadowDom,
+};
+@Component(cmp)
+           ~~~ [0]
+class ComponentA {}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+const enc = ViewEncapsulation.ShadowDom;
+@Component({
+    selector: 'component-b',
+    encapsulation: enc,
+                   ~~~ [1]
+})
+class ComponentB {}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+@Component({
+    selector: 'component-c',
+    encapsulation: {}.ShadowDom,
+                   ~~ [1]
+})
+class ComponentC {}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+const viewEnc = ViewEncapsulation;
+@Component({
+    selector: 'component-d',
+    encapsulation: viewEnc.ShadowDom,
+                   ~~~~~~~ [1]
+})
+class ComponentD {}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+@Component({
+           ~
+    selector: 'component-e',
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+})
+~ [2]
+class ComponentE {}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+[0]: Argument to @Component() is not an object literal expression.
+[1]: The value of the encapsulation property must be refined from @angular/core's ViewEncapsulation export.
+[2]: Call to @Component decorator did not include encapsulation property.

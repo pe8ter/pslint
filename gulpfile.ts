@@ -99,6 +99,7 @@ export async function copyPackageJson() {
             const picked: any = pick(json, KEYS);
             picked.peerDependencies = {
                 tslint: devDependencies.tslint,
+                typescript: devDependencies.typescript,
             };
             picked.main = 'index.js';
             return picked;
